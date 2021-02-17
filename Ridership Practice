@@ -1,9 +1,0 @@
-import pandas as pd
-import matplotlib.pylab as plt
-import statsmodels.formula.api as sm
-from statsmodels.tsa import tsatools
-from dmba import regressionSummary
-
-Amtrak_df = pd.read_csv(r'C:\Users\morva\Documents\Python Scripts\Amtrak.csv')
-
-

@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pylab as plt
+import statsmodels.formula.api as sm
+from statsmodels.tsa import tsatools
+from dmba import regressionSummary
+
+Train_df = pd.read_csv(r'C:\Users\morva\Documents\Python Scripts\Train.csv')
+
+# Let us convert the date information to a datetime object
+Train_df['Date'] = pd.to_datetime(Train_df.Month, format='%d/%m/%Y')
+
+# Let us convert dataframe column to series (name is used to label the data)
+ridership_ts = pd.Series(Train_df.Ridership.values, index=Train_df.Date,name='Ridership')
+
+# Let us define the time series frequency
+ridership_ts.index = pd.DatetimeIndex(ridership_ts.index, freq=ridership_ts.index.inferred_freq)
+
+# Let us plot the series
+ax = ridership_ts.plot()
+ax.set_xlabel('Time')
+ax.set_ylabel('Ridership (in 000s)')
+ax.set_ylim(1300, 2300)
+
+
+
