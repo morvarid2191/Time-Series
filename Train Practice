@@ -22,4 +22,23 @@ ax.set_ylabel('Ridership (in 000s)')
 ax.set_ylim(1300, 2300)
 
 
+# Let us take a look at a short time series from 1997 to 1999 using a slice 
+ridership_ts_3yrs = ridership_ts['1997':'1999']
+# We want to create a data frame with additional predictors from time series
+# the following command adds a constant term, a trend term and a quadratic trend term
+ridership_df = tsatools.add_trend(ridership_ts, trend='ctt')
+# fit a linear regression model to the time series
+ridership_lm = sm.ols(formula='Ridership ~ trend + trend_squared',
+                      data=ridership_df).fit()
+
+# shorter and longer time series
+fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(10,6))
+ridership_ts_3yrs.plot(ax=axes[0])
+ridership_ts.plot(ax=axes[1])
+for ax in axes:
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Ridership (in 000s)')
+    ax.set_ylim(1300, 2300)
+ridership_lm.predict(ridership_df).plot(ax=axes[1])
+plt.show()
 
